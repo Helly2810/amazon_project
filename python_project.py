@@ -387,13 +387,39 @@ def dataset():
     """
 @app.route("/dataset_view")
 def dataset_view():
-    import pandas as pd
-    import os
+    return """
+    <html>
+    <head>
+        <style>
+            body {
+                background: #0f2027;
+                color: white;
+                text-align: center;
+                font-family: Arial;
+                margin-top: 50px;
+            }
 
-    file_path = os.path.join("static", "amazon1.csv")
+            .btn {
+                padding: 15px 30px;
+                background: rgba(255,255,255,0.2);
+                color: white;
+                text-decoration: none;
+                border-radius: 10px;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
 
-    df = pd.read_csv(file_path, nrows=20)
-    return df.to_html(index=False)   
+        <h2>Dataset</h2>
+
+        <a class="btn" href="/static/amazon.csv" target="_blank">
+            📄 Open Dataset File
+        </a>
+
+    </body>
+    </html>
+    """   
 
 @app.route("/correlation")
 def correlation():
