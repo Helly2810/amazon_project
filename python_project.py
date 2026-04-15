@@ -327,79 +327,76 @@ def home():
 
 @app.route("/dataset")
 def dataset():
-    return """
+    import pandas as pd
+    import os
+
+    file_path = os.path.join(os.path.dirname(__file__), "static", "amazon1.xlsx")
+
+    df = pd.read_excel(file_path, nrows=20)   # ONLY 20 rows
+    table = df.to_html(index=False)
+
+    return f"""
     <html>
     <head>
         <style>
-            body {
+            body {{
                 margin: 0;
-                font-family: Arial, sans-serif;
+                font-family: Arial;
                 background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
                 color: white;
                 text-align: center;
-            }
+            }}
 
-            h1 {
-                margin-top: 60px;
-                font-size: 40px;
-            }
+            h1 {{
+                margin-top: 40px;
+            }}
 
-            .container {
-                margin-top: 80px;
-            }
-
-            .btn {
+            .btn {{
                 display: block;
-                width: 350px;
+                width: 300px;
                 margin: 20px auto;
-                padding: 18px;
-                font-size: 20px;
-                border-radius: 12px;
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 10px;
                 text-decoration: none;
                 color: white;
-                background: rgba(255, 255, 255, 0.2);
-                transition: 0.3s;
-            }
+                background: rgba(255,255,255,0.2);
+            }}
 
-            .btn:hover {
-                background: rgba(255, 255, 255, 0.4);
-                transform: scale(1.05);
-            }
+            table {{
+                margin: 30px auto;
+                border-collapse: collapse;
+                background: white;
+                color: black;
+                width: 90%;
+            }}
 
-            .info {
-                margin-top: 50px;
-                font-size: 18px;
-                color: #ddd;
-            }
+            th, td {{
+                padding: 8px;
+                border: 1px solid #333;
+            }}
         </style>
     </head>
 
     <body>
 
-        <h1>📊 Dataset</h1>
+    <h1>📊 Dataset Preview</h1>
 
-        <div class="container">
+    <!-- 🔥 THIS IS KAGGLE BUTTON -->
+    <a class="btn" href="https://www.kaggle.com/datasets/anandshaw2001/amazon-sales-dataset" target="_blank">
+        🌐 View Dataset on Kaggle
+    </a>
 
-            <a class="btn" href="https://www.kaggle.com/datasets/anandshaw2001/amazon-sales-dataset" target="_blank">
-                🌐 View Dataset on Kaggle
-            </a>
+    <a class="btn" href="/static/amazon1.xlsx" target="_blank">
+        📄 View Full Dataset
+    </a>
 
-            <a class="btn" href="/static/amazon1.xlsx" target="_blank">
-                📄 Download / View Excel File
-            </a>
+    {table}
 
-        </div>
-
-        <div class="info">
-            <p>
-                This dataset contains Amazon sales data used for analysis including 
-                customer behavior, purchase patterns, discounts, and revenue trends.
-            </p>
-        </div>
-
-    </body>
+</body>
     </html>
     """
+  
 
 
 @app.route("/correlation")
