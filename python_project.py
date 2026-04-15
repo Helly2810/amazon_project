@@ -389,7 +389,7 @@ def dataset():
 def dataset_view():
     import pandas as pd
 
-    df = pd.read_excel("amazon1.csv").head(50)
+    df = pd.read_csv("amazon1.csv").head(50)
     return df.to_html(index=False)   
 
 @app.route("/correlation")
