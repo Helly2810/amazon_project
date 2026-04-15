@@ -324,99 +324,78 @@ def home():
     </html>
     """
 
+
 @app.route("/dataset")
 def dataset():
-    import pandas as pd
-    import os
-
-    file_path = os.path.join(os.path.dirname(__file__), "amazon1.xlsx")
-    df = pd.read_excel(file_path).head(181)
-    table = df.to_html(index=False)
-
-    return f"""
+    return """
     <html>
     <head>
         <style>
-            body {{
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
                 background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-                font-family: Arial;
-                text-align: center;
                 color: white;
-                margin-top: 50px;
-            }}
+                text-align: center;
+            }
 
-            .btn {{
+            h1 {
+                margin-top: 60px;
+                font-size: 40px;
+            }
+
+            .container {
+                margin-top: 80px;
+            }
+
+            .btn {
                 display: block;
-                width: 400px;
+                width: 350px;
                 margin: 20px auto;
-                padding: 15px;
-                font-size: 18px;
-                border-radius: 10px;
+                padding: 18px;
+                font-size: 20px;
+                border-radius: 12px;
                 text-decoration: none;
                 color: white;
-                background: rgba(255,255,255,0.2);
-                cursor: pointer;
-            }}
+                background: rgba(255, 255, 255, 0.2);
+                transition: 0.3s;
+            }
 
-            .btn:hover {{
-                background: rgba(255,255,255,0.4);
-            }}
+            .btn:hover {
+                background: rgba(255, 255, 255, 0.4);
+                transform: scale(1.05);
+            }
 
-            .table-container {{
-                display: none;
-                margin: 30px;
-                overflow-x: auto;
-            }}
-
-            table {{
-                width: 100%;
-                border-collapse: collapse;
-                background: white;
-                color: black;
-            }}
-
-            th, td {{
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: center;
-            }}
-
-            th {{
-                background: #333;
-                color: white;
-            }}
+            .info {
+                margin-top: 50px;
+                font-size: 18px;
+                color: #ddd;
+            }
         </style>
     </head>
 
     <body>
 
-        <h1>Dataset</h1>
+        <h1>📊 Dataset</h1>
 
-        <!-- BUTTON 1: KAGGLE -->
-        <a class="btn" href="https://www.kaggle.com/datasets/anandshaw2001/amazon-sales-dataset" target="_blank">
-            📊 View Dataset on Kaggle
-        </a>
+        <div class="container">
 
-        <!-- BUTTON 2: EXCEL -->
-        <div class="btn" onclick="toggleTable()">
-            📄 View Excel (First 181 Rows)
+            <a class="btn" href="https://www.kaggle.com/datasets/anandshaw2001/amazon-sales-dataset" target="_blank">
+                🌐 View Dataset on Kaggle
+            </a>
+
+            <a class="btn" href="/static/amazon1.xlsx" target="_blank">
+                📄 Download / View Excel File
+            </a>
+
         </div>
 
-        <!-- TABLE -->
-        <div class="table-container" id="tableBox">
-            {table}
+        <div class="info">
+            <p>
+                This dataset contains Amazon sales data used for analysis including 
+                customer behavior, purchase patterns, discounts, and revenue trends.
+            </p>
         </div>
-
-        <script>
-            function toggleTable() {{
-                var x = document.getElementById("tableBox");
-                if (x.style.display === "none") {{
-                    x.style.display = "block";
-                }} else {{
-                    x.style.display = "none";
-                }}
-            }}
-        </script>
 
     </body>
     </html>
