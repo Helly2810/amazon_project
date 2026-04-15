@@ -388,8 +388,11 @@ def dataset():
 @app.route("/dataset_view")
 def dataset_view():
     import pandas as pd
+    import os
 
-    df = pd.read_csv("amazon1.csv").head(50)
+    file_path = os.path.join("static", "amazon1.csv")
+
+    df = pd.read_csv(file_path, nrows=20)
     return df.to_html(index=False)   
 
 @app.route("/correlation")
