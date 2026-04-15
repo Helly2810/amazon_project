@@ -365,11 +365,13 @@ def dataset():
 
         <h1>Dataset</h1>
 
-        <a class="btn" href="YOUR_KAGGLE_LINK" target="_blank">
+        <a class="btn" href="https://www.kaggle.com/datasets/anandshaw2001/amazon-sales-dataset" target="_blank">
             📊 View Dataset on Kaggle
         </a>
 
-        <button class="btn" onclick="loadExcel()">📄 View Excel</button>
+        <a class="btn" href="/dataset_view">
+           📄 View Excel
+        </a>
 
         <iframe id="frame"></iframe>
 
