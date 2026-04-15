@@ -413,7 +413,7 @@ def dataset_view():
 
         <h2>Dataset</h2>
 
-        <a class="btn" href="/static/amazon.csv" target="_blank">
+        <a class="btn" href="/static/amazon1.csv" target="_blank">
             📄 Open Dataset File
         </a>
 
