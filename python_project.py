@@ -327,26 +327,19 @@ def home():
 
 @app.route("/dataset")
 def dataset():
-    import pandas as pd
-    import os
-
-    file_path = os.path.join(os.path.dirname(__file__), "amazon1.xlsx")
-    df = pd.read_excel(file_path).head(181)
-    table = df.to_html(index=False)
-
-    return f"""
+    return """
     <html>
     <head>
         <style>
-            body {{
+            body {
                 background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
                 font-family: Arial;
                 text-align: center;
                 color: white;
                 margin-top: 50px;
-            }}
+            }
 
-            .btn {{
+            .btn {
                 display: block;
                 width: 400px;
                 margin: 20px auto;
@@ -356,36 +349,15 @@ def dataset():
                 text-decoration: none;
                 color: white;
                 background: rgba(255,255,255,0.2);
-                cursor: pointer;
-            }}
+            }
 
-            .btn:hover {{
-                background: rgba(255,255,255,0.4);
-            }}
-
-            .table-container {{
+            iframe {
+                width: 90%;
+                height: 500px;
+                border: none;
                 display: none;
-                margin: 30px;
-                overflow-x: auto;
-            }}
-
-            table {{
-                width: 100%;
-                border-collapse: collapse;
-                background: white;
-                color: black;
-            }}
-
-            th, td {{
-                border: 1px solid #ddd;
-                padding: 8px;
-                text-align: center;
-            }}
-
-            th {{
-                background: #333;
-                color: white;
-            }}
+                margin: auto;
+            }
         </style>
     </head>
 
@@ -393,35 +365,30 @@ def dataset():
 
         <h1>Dataset</h1>
 
-        <!-- BUTTON 1: KAGGLE -->
-        <a class="btn" href="https://www.kaggle.com/datasets/anandshaw2001/amazon-sales-dataset" target="_blank">
+        <a class="btn" href="YOUR_KAGGLE_LINK" target="_blank">
             📊 View Dataset on Kaggle
         </a>
 
-        <!-- BUTTON 2: EXCEL -->
-        <div class="btn" onclick="toggleTable()">
-            📄 View Excel (First 181 Rows)
-        </div>
+        <button class="btn" onclick="loadExcel()">📄 View Excel</button>
 
-        <!-- TABLE -->
-        <div class="table-container" id="tableBox">
-            {table}
-        </div>
+        <iframe id="frame"></iframe>
 
         <script>
-            function toggleTable() {{
-                var x = document.getElementById("tableBox");
-                if (x.style.display === "none") {{
-                    x.style.display = "block";
-                }} else {{
-                    x.style.display = "none";
-                }}
-            }}
+            function loadExcel() {
+                document.getElementById("frame").style.display = "block";
+                document.getElementById("frame").src = "/dataset_view";
+            }
         </script>
 
     </body>
     </html>
     """
+@app.route("/dataset_view")
+def dataset_view():
+    import pandas as pd
+
+    df = pd.read_excel("amazon1.xlsx").head(50)
+    return df.to_html(index=False)   
 
 @app.route("/correlation")
 def correlation():
